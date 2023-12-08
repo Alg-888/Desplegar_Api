@@ -1,133 +1,161 @@
-<%- include('template/cabecera',{tituloweb:'Pagina de inicio'}) %>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CRUD MONGO DB</title>
-    <style>
-      .container{
-          max-width: 960px;   
-      }
-  </style>
+<!DOCTYPE html>
+<html lang="es">
 
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beneficiarios</title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/estilo.css">
+  <link rel="stylesheet" href="/icons/font/bootstrap-icons.css">
+</head>
+<style>
+  .container {
+    max-width: 960px;
+  }
+</style>
 
+<div class="container-fluid p-0 d-flex mb-auto" style="height: 100%;">
+  <div id="bdSidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-info text-white offcanvas-md offcanvas-start"
+    style="width: 200px;">
+    <a href="#" class="navbar-brand">
+      <h5><i><img src="/css/umlB.PNG" height="90px" width="90px"></i></h5>
+    </a>
+    <hr>
+    <ul class="mynav nav nav-pills flex-column mb-auto">
+    </ul>
+  </div>
 
   <body>
-  <div class="container">
-    <h1 class="text-dark">Beneficiarios</h1>
-    <div class="shadow-lg p-5 mb-5 bg-body rounded">
-      <h4>Datos del beneficiario</h4>
-  
-      <!-- Botón para abrir el modal de crear -->
-      <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#modalCrearBeneficiario">
-        <i class="bi bi-plus"></i> Crear Beneficiario
-      </button>
-  
-      <!-- Modal para Crear -->
-      <div id="modalCrearBeneficiario" class="modal fade" tabindex="-1" aria-labelledby="modalCrearBeneficiarioLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header bg-success text-white">
-              <h5 class="modal-title" id="modalCrearBeneficiarioLabel">Crear beneficiario</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form action="/crearBeneficiario" method="POST">
-    
-                <div class="mb-3">
-                  <label for="nombre" class="form-label">Nombre completo *</label>
-                  <input id="nombre" name="nombre" type="text" class="form-control" required>
-                </div>
-  
-                <div class="mb-3">
-                  <label for="telefono" class="form-label">Telefono *</label>
-                  <input id="telefono" name="telefono" type="number" class="form-control" required>
-                </div>
-  
-                <div class="mb-3">
-                  <label for="numero_familiares" class="form-label">Numero de familiares *</label>
-                  <input id="numero_familiares" name="numero_familiares" type="number" class="form-control" required>
-                </div>
+    <div class="container">
+      <h1 class="text-dark">Beneficiarios</h1>
+      <div class="shadow-lg p-5 mb-5 bg-body rounded">
+        <h4>Datos del beneficiario</h4>
 
-                <div class="mb-3">
-                  <label for="documento" class="form-label">Documento *</label>
-                  <input id="documento" name="documento" type="number" class="form-control" required>
-                </div>
-  
-                <button type="submit" class="w-100 btn btn-success"><i class="bi bi-save"></i> Registrar datos del beneficiario</button>
-              </form>
+        <!-- Botón para abrir el modal de crear -->
+        <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal"
+          data-bs-target="#modalCrearBeneficiario">
+          <i class="bi bi-plus"></i> Crear Beneficiario
+        </button>
+
+        <!-- Modal para Crear -->
+        <div id="modalCrearBeneficiario" class="modal fade" tabindex="-1" aria-labelledby="modalCrearBeneficiarioLabel"
+          aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="modalCrearBeneficiarioLabel">Crear beneficiario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form action="/crearBeneficiario" method="POST">
+
+                  <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre completo *</label>
+                    <input id="nombre" name="nombre" type="text" class="form-control" required>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="telefono" class="form-label">Telefono *</label>
+                    <input id="telefono" name="telefono" type="number" class="form-control" required>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="numero_familiares" class="form-label">Numero de familiares *</label>
+                    <input id="numero_familiares" name="numero_familiares" type="number" class="form-control" required>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="documento" class="form-label">Documento *</label>
+                    <input id="documento" name="documento" type="number" class="form-control" required>
+                  </div>
+
+                  <button type="submit" class="w-100 btn btn-success"><i class="bi bi-save"></i> Registrar datos del
+                    beneficiario</button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
         <!-- Tabla Alumnos  -->
         <table id="tablaBeneficiarios" class="table mt-4">
-            <thead>
-                <tr>
-                    <th style="display: none;">ID</th>
-                    <th>Nombre completo</th>
-                    <th>Telefono</th>
-                    <th>Numero de familiares</th>
-                    <th>Identificacion</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% beneficiarios.forEach( (beneficiario) => { %>
-                    <tr>
-                        <td style="display: none;"><%= beneficiario._id %></td>
-                        <td><%= beneficiario.nombre %></td>
-                        <td><%= beneficiario.telefono %></td>
-                        <td><%= beneficiario.numero_familiares %></td>
-                        <td><%= beneficiario.documento %></td>
-                        <td>
-                            <a type="button" class="btnEditar btn btn-outline-primary bi bi-pencil"></a>
-                            <a href="/beneficiarios/borrar/<%= beneficiario._id %>" class="btn btn-outline-danger bi bi-trash"></a>
-                        </td>
-                    </tr>
-                <% }) %>
-            </tbody>
+          <thead>
+            <tr>
+              <th style="display: none;">ID</th>
+              <th>Nombre completo</th>
+              <th>Telefono</th>
+              <th>Numero de familiares</th>
+              <th>Documento</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% beneficiarios.forEach( (beneficiario)=> { %>
+              <tr>
+                <td style="display: none;"><%= beneficiario._id %></td>
+                <td><%= beneficiario.nombre %></td>
+                <td><%= beneficiario.telefono %></td>
+                <td><%= beneficiario.numero_familiares %></td>
+                <td><%= beneficiario.documento %></td>
+                <td><a type="button" class="btnEditar btn btn-outline-primary bi bi-pencil"></a>
+                  <a href="/eliminarBeneficiario/<%= beneficiario._id %>"class="btn btn-outline-danger bi bi-trash"></a>
+                </td>
+              </tr>
+              <% }) %>
+          </tbody>
         </table>
-</div>
-<!-- Modal para Editar   -->
-<div id="modalBeneficiario" class="modal fade" tabindex="-1" aria-labelledby="modalBeneficiario" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header bg-primary text-white">
-          <h5 class="modal-title" id="exampleModalLabel">Editar beneficiario</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form action="/beneficiarios/editar" method="POST">
-              <input name="id_Editar" id="id_Editar" type="text" hidden>
-
-              <div class="mb-3">
-                <label for="identificacion_Editar" class="col-form-label">Identificacion:</label>
-                <input id="identificacion_Editar" name="identificacion_Editar" type="text" class="form-control" value="">
-              </div>
-
-            <div class="mb-3">
-              <label for="nombre_Completo_Editar" class="col-form-label">Nombre completo:</label>
-              <input id="nombre_Completo_Editar" name="nombre_Completo_Editar" type="text" class="form-control" value="">
-            </div>
-
-            <div class="mb-3">
-              <label for="telefono_Editar" class="col-form-label">Telefono:</label>
-              <input id="telefono_Editar" name="telefono_Editar" type="number" class="form-control" value="">
-            </div>
-
-            <div class="mb-3">
-              <label for="num_Familiares_Editar" class="col-form-label">Numero de familiares:</label>
-              <input id="num_Familiares_Editar" name="num_Familiares_Editar" type="number" class="form-control" value="">
-            </div>
-         
-        </div>
-        <div class="modal-footer">              
-          <button type="submit" class="btn btn-primary">Actualizar</button>
-        </div>
-      </form>
       </div>
-    </div>
-  </div>
-    
+      <!-- Modal para Editar   -->
+      <div id="modalBeneficiario" class="modal fade" tabindex="-1" aria-labelledby="modalBeneficiario"
+        aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+              <h5 class="modal-title" id="exampleModalLabel">Editar beneficiario</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="/editarBeneficiario" method="POST">
+                <input name="id_editar" id="id_editar" type="text" hidden>
+
+                
+                <div class="mb-3">
+                  <label for="nombre_editar" class="col-form-label">Nombre completo:</label>
+                  <input id="nombre_editar" name="nombre_editar" type="text" class="form-control"
+                  value="">
+                </div>
+                
+                <div class="mb-3">
+                  <label for="telefono_editar" class="col-form-label">Telefono:</label>
+                  <input id="telefono_editar" name="telefono_editar" type="number" class="form-control" value="">
+                </div>
+                
+                <div class="mb-3">
+                  <label for="numF_editar" class="col-form-label">Numero de familiares:</label>
+                  <input id="numF_editar" name="numF_editar" type="number" class="form-control"
+                  value="">
+                </div>
+                
+                <div class="mb-3">
+                  <label for="documento_editar" class="col-form-label">Documento:</label>
+                  <input id="documento_editar" name="documento_editar" type="text" class="form-control"
+                    value="">
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Actualizar</button>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+      <script src="/js/bootstrap.bundle.min.js"></script>
+      <script src="/js/modalBeneficiario.js"></script>
+
   </body>
-<%- include('template/footer') %>
+
+</html>

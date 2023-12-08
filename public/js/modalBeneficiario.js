@@ -9,10 +9,10 @@ const onB = (element, event, selector, handler) => {
 onB(document, 'click', '.btnEditar', e => {
     const fila = e.target.parentNode.parentNode;
     console.log(fila);
-    document.getElementById('id_Editar').value = fila.children[0].innerHTML;
-    document.getElementById('identificacion_Editar').value = fila.children[1].innerHTML;
-    document.getElementById('nombre_Completo_Editar').value = fila.children[2].innerHTML;
-    document.getElementById('telefono_Editar').value = fila.children[3].innerHTML;
-    document.getElementById('num_Familiares_Editar').value = fila.children[4].innerHTML;
+    document.getElementById('id_editar').value = fila.children[0].innerHTML;
+    document.getElementById('nombre_editar').value = fila.children[1].innerHTML;
+    document.getElementById('telefono_editar').value = fila.children[2].innerHTML;
+    document.getElementById('numF_editar').value = fila.children[3].innerHTML;
+    document.getElementById('documento_editar').value = fila.children[4].innerHTML;
     modalBeneficiario.show();
 });
